@@ -69,4 +69,5 @@ class TestConfirm(object):
 
         # Verify status code
         assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)
+        # Verify the response payload
         assert_valid_schema(r.json(), response_schema.payload_check_error)
