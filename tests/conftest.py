@@ -10,13 +10,13 @@ from qa.utils.common import *
 @pytest.fixture(scope="function")
 def new_registered_user():
 
-    username = 'temp_user@foo.com'
-    password = 'temp1234'
+    username = new_test_account['username']
+    password = new_test_account['password']
 
     db.delete_account_info(username)
 
-    register_data = payload.register(username=username, password=password)
-    r = post(auth_register_endpoint, json=register_data, headers=headers(vungle_src='pub'))
+    register_data = payload.register(username=username, password=password, account_type='publisher')
+    r = post(auth_register_endpoint, json=register_data, headers=headers(vungle_src='pub', vungle_version='1.0'))
         
     if r.status_code == 200:
         token = db.get_user_activation_token(username)

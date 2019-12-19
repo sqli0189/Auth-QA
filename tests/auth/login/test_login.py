@@ -91,7 +91,8 @@ class TestLogin(object):
     @allure.severity('normal')
     def testN_login_with_inactivated_user(self, new_registered_user):
         '''
-        An error message should be returned in the response payload
+        1. The response status code should be HTTP 403;
+        2. An error message should be returned in the response payload
         '''
 
         username = new_registered_user[0]
@@ -102,11 +103,7 @@ class TestLogin(object):
 
         # Verify status code
         assert_response_status_code(r.status_code, HTTPStatus.FORBIDDEN)
-        assert_valid_schema(r.json(), response_schema.error_message)
-
-        # Verify response body
-        assert_that(r.json(), equal_to({'message':
-                                        'code: 403, message: account not activated'}))
+        assert_valid_schema(r.json(), response_schema.payload_check_error)
 
 
     @allure.story('Call login endpoint without request payload')

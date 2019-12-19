@@ -95,28 +95,3 @@ def put(url, json, params=None, headers=headers()):
     except Exception as ex:
         logging.exception('An exception happens while sending put request')
         raise ex
-
-# Create new application
-def create_app(app_name, platform_name, owner_id, vungle_src, auth_token, is_coppa=False):
-
-    app_data = payload.application(owner = owner_id, 
-                              platform = platform_name,
-                              app_name = app_name, 
-                              is_coppa = is_coppa)
-
-    request_headers = headers(vungle_src=vungle_src, vungle_version='1', auth_token=auth_token)
-
-    try:
-
-        r = post(admin_apps_endpoint, json=app_data, headers = request_headers)
-        
-        if r.status_code != 200:
-            raise Exception('create_application(): Failed to create the new app with the payload: %s' % dumps(app_data, indent = 4))
-        
-        return {"name": app_name, "platform": platform_name, 
-                "request_header": request_headers, "request_payload": app_data,
-                "id": r.json()['id']}
-
-    except Exception as ex:
-        logging.exception('An exception happens while creating the application')
-        raise ex
