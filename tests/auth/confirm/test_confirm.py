@@ -14,7 +14,7 @@ import qa.data.response_schema as response_schema
 
 from qa.settings import *
 
-@allure.epic('Mission Ctrl: Authentication')
+@allure.epic('Authentication')
 @allure.feature('New user confirm to login')
 class TestConfirm(object):
 
@@ -23,7 +23,7 @@ class TestConfirm(object):
     @allure.severity('critical')
     def test_confirm_with_correct_token(self, new_registered_user):
         '''
-        A HTTP 200 OK is expected to be returned.
+        1. The response status code should be HTTP 200 OK;
         '''
 
         # Get the token of new user
@@ -39,25 +39,8 @@ class TestConfirm(object):
 
         # Verify status code
         assert_response_status_code(r.status_code, HTTPStatus.OK)
-        # Verify the resposne content
+        # Verify the response payload
         assert_that(r.json(), has_entries(expected_response_payload))
-
-
-    @allure.story('Call confirm endpoint with an inexistent token')
-    @allure.severity('normal')
-    def testN_confirm_with_inexistent_token(self):
-        '''
-        A HTTP 404 error is expected to be returned
-        '''
-
-        confirm_payload = payload.confirm(token='zzzzzzzzz')
-
-        r = post(auth_confirm_endpoint, json=confirm_payload, headers=headers(vungle_version='1'))
-
-        # Verify status code
-        assert_response_status_code(r.status_code, HTTPStatus.NOT_FOUND)
-        # Verify content
-        assert_that(r.text, equal_to(''))
 
 
     @allure.story('Call confirm endpoint without payload information')
@@ -69,10 +52,9 @@ class TestConfirm(object):
         r = post(auth_confirm_endpoint, json=None, headers=headers(vungle_version='1'))
 
         # Verify status code
-        assert_response_status_code(r.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
-        #Verify response content
-        assert_valid_schema(r.json(), response_schema.error_message)
-        assert_that(r.json(), equal_to({"code": 602, "message": "body in body is required"}))
+        assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)
+        #Verify response payload
+        assert_valid_schema(r.json(), response_schema.payload_check_error)
 
 
     @allure.story('Call confirm endpoint without vungle-version in request headers')
@@ -83,10 +65,8 @@ class TestConfirm(object):
         '''
         confirm_payload = payload.confirm(token='zzzzzzzzz')
 
-        r = post(auth_confirm_endpoint, json=confirm_payload, headers=headers())
+        r = post(auth_confirm_endpoint, json=confirm_payload, headers=headers(vungle_version=None))
 
         # Verify status code
-        assert_response_status_code(r.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
-        assert_valid_schema(r.json(), response_schema.error_message)
-        # Verify content
-        assert_that(r.json(), equal_to({"code": 602, "message": "vungle-version in header is required"}))
+        assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)
+        assert_valid_schema(r.json(), response_schema.payload_check_error)
