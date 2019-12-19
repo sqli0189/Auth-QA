@@ -180,13 +180,30 @@ class TestLogin(object):
     @allure.severity('minor')
     def testN_login_with_invalid_vungle_src_val(self):
         '''
-        User should not be allowed to sign in and an error message should be returned.
+        1. The response status code should be HTTP 400;
+        2. User should not be allowed to sign in and an error message should be returned.
         '''
         login_payload = payload.login(test_accounts['pub']['username'], 
                                       test_accounts['pub']['password'])
         
         invalid_src_param = 'foo'
         r = requests.post(auth_login_endpoint, json=login_payload, headers=headers(vungle_src=invalid_src_param))
+
+        # Verify status code
+        assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)
+        assert_valid_schema(r.json(), response_schema.payload_check_error)
+    
+
+    @allure.story('In request headers, set an invalid value to the vungle source and sign in')
+    @allure.severity('minor')
+    def testN_login_without_vungle_version(self):
+        '''
+        
+        '''
+        login_payload = payload.login(test_accounts['pub']['username'], 
+                                      test_accounts['pub']['password'])
+        
+        r = requests.post(auth_login_endpoint, json=login_payload, headers=headers(vungle_version=None))
 
         # Verify status code
         assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)

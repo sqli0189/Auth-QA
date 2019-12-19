@@ -14,7 +14,6 @@ import qa.utils.payload as payload
 import qa.data.response_schema as response_schema
 
 
-
 @allure.epic('Authentication')
 @allure.feature('Re-send activation e-mail')
 class TestResend(object):
