@@ -1,7 +1,6 @@
 {
     "test_env": {
-        "auth": 
-        {
+        "auth": {
             "host": "auth-qa-api.vungle.io",
             "version": "v1"
         },
