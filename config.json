@@ -1,0 +1,39 @@
+{
+    "test_env": {
+        "auth": 
+        {
+            "host": "auth-qa-api.vungle.io",
+            "version": "v1"
+        },
+        "type": "QA"
+    },
+    "test_accounts": {
+        "pub_admin": {
+            "username": "vungle.auto.qa.internal@gmail.com",
+            "password": "Vungle@2019"
+        },
+        "pub": {
+            "username": "vungle.pub@gmail.com",
+            "password": "Vungle@2019"
+        },
+        "adv": {
+            "username": "vungle.adv@gmail.com",
+            "password": "Vungle@2019"
+        },
+        "both": {
+            "username": "vungle.both@gmail.com",
+            "password": "Vungle@2019"
+        }
+    },
+    "mongo": {
+        "host": "ds015841-a0.mlab.com",
+        "port": "15841",
+        "username": "alex.li@vungle.com",
+        "password": "D7q3mfiy$6B&9Y2",
+        "db_name": "vvv-repl"
+    },
+    "imap": {
+        "host": "imap.gmail.com",
+        "port": "993"
+    }
+}
