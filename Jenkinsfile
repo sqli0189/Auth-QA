@@ -37,10 +37,10 @@ pipeline{
     }
     post {
         success {
-            slackSend (color: '#00FF00', message: "*Test Job:* ${env.JOB_NAME}\n*Build Num:* ${env.BUILD_NUMBER}\n*Admin Service Host:* ${ADMIN_SERVICE_HOST}\n*Manage Service Host:* ${MANAGE_SERVICE_HOST}\n*Test Result:* :green_light:Passed\n*Test Duration:* ${currentBuild.durationString}\n*Test Report:* ${env.BUILD_URL}")
+            slackSend (color: '#00FF00', message: "*Test Job:* ${env.JOB_NAME}\n*Build Num:* ${env.BUILD_NUMBER}\n*Auth Service Host:* ${AUTH_SERVICE_HOST}\n*Test Result:* :green_light:Passed\n*Test Duration:* ${currentBuild.durationString}\n*Test Report:* ${env.BUILD_URL}")
         }
         unstable {
-            slackSend (color: '#F8DE00', message: "*Test Job:* ${env.JOB_NAME}\n*Build Num:* ${env.BUILD_NUMBER}\n*Admin Service Host:* ${ADMIN_SERVICE_HOST}\n*Manage Service Host:* ${MANAGE_SERVICE_HOST}\n*Test Result:* :red_light:Failed\n*Test Duration:* ${currentBuild.durationString}\n*Test Report:* ${env.BUILD_URL}")
+            slackSend (color: '#F8DE00', message: "*Test Job:* ${env.JOB_NAME}\n*Build Num:* ${env.BUILD_NUMBER}\n*Auth Service Host:* ${AUTH_SERVICE_HOST}\n*Test Result:* :red_light:Failed\n*Test Duration:* ${currentBuild.durationString}\n*Test Report:* ${env.BUILD_URL}")
         }
         failure {
             slackSend (color: '#FF0000', message: "The job ${env.JOB_NAME} is borken, Please check the reason. (${env.BUILD_URL})")
