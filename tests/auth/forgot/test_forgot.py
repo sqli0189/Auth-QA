@@ -29,10 +29,10 @@ class TestForgot(object):
         2. The e-mail should be successfully sent to the user's mailbox;
         '''
         # Clear the inbox
-        imapclient.clear_inbox(pub_test_account['username'], pub_test_account['password'])
+        imapclient.clear_inbox(both_test_account['username'], both_test_account['password'])
 
         # Test execution
-        forgot_payload = payload.forgot(pub_test_account['username'])
+        forgot_payload = payload.forgot(both_test_account['username'])
 
         r = post(auth_forgot_endpoint, json = forgot_payload, headers=headers())
 
@@ -42,8 +42,8 @@ class TestForgot(object):
 
         expected_sender = 'no-reply@vungle.com'
         expected_subject = 'Password Change'
-        assert_that(imapclient.search_email(pub_test_account['username'],
-                                            pub_test_account['password'],
+        assert_that(imapclient.search_email(both_test_account['username'],
+                                            both_test_account['password'],
                                             expected_subject, 
                                             expected_sender, 40)[0],
                     equal_to(True),
