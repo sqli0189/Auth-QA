@@ -55,7 +55,7 @@ class TestRegister(object):
         finally:
             db.delete_account_info(email)
     
-    
+
     @allure.story('Register a new user with incorrect account type')
     @allure.severity('minor')
     @pytest.mark.parametrize('incorrect_account_type', ['pub', 'advertiser0', 'foo'])
@@ -74,7 +74,7 @@ class TestRegister(object):
             r = post(auth_register_endpoint, json=register_payload, headers=headers())
 
             # Verify status code
-            assert_response_status_code(r.status_code, HTTPStatus.OK)            # Verify response body
+            assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)            # Verify response body
             assert_valid_schema(r.json(), response_schema.payload_check_error)
 
         finally:

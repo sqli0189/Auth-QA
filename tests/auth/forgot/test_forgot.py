@@ -72,7 +72,7 @@ class TestForgot(object):
     @pytest.mark.parametrize('malformed_email', ['abc', '@', '@123.com', 'abc@'])    
     def testN_forgot_with_malformed_email_address(self, malformed_email):
         '''
-        1. The response status code should be HTTP 404;
+        1. The response status code should be HTTP 400;
         2. An error message is expected to be returned in the response payload;
         '''
         forgot_payload = payload.forgot(username = malformed_email)
@@ -80,7 +80,7 @@ class TestForgot(object):
         r = post(auth_forgot_endpoint, json=forgot_payload, headers=headers(vungle_version='1'))
 
         # Verify status code
-        assert_response_status_code(r.status_code, HTTPStatus.NOT_FOUND)
+        assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)
         assert_valid_schema(r.json(), response_schema.payload_check_error)    
 
 
