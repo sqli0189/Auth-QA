@@ -28,18 +28,17 @@ class TestResend(object):
         '''
         
         # Clear the inbox
-        imapclient.clear_inbox(pub_test_account['username'], pub_test_account['password'])
+        imapclient.clear_inbox(pub_admin_test_account['username'], pub_admin_test_account['password'])
             
-        resend_payload = payload.resend(pub_test_account['username'])
+        resend_payload = payload.resend(pub_admin_test_account['username'])
         r = post(auth_resend_endpoint, json=resend_payload, headers=headers(vungle_version='1'))
 
         assert_that(r.status_code, HTTPStatus.OK)
-        assert_valid_schema(r.json(), equal_to(response_schema.empty_schema))
 
         expected_sender = 'no-reply@vungle.com'
         expected_subject = 'Welcome to Vungle!'
-        assert_that(imapclient.search_email(pub_test_account['username'],
-                                            pub_test_account['password'],
+        assert_that(imapclient.search_email(pub_admin_test_account['username'],
+                                            pub_admin_test_account['password'],
                                             expected_subject, 
                                             expected_sender, 40)[0],
                     equal_to(True),
@@ -74,11 +73,8 @@ class TestResend(object):
 
         # Verify status code
         assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)
-        assert_valid_schema(r.json(), response_schema.error_message)
-
-        assert_that(r.json(), equal_to({"code": 601,
-                                        "message": "body.username in body must be of type email: \"%s\"" % email_addr}
-                                    ))
+        # Verify the response payload
+        assert_valid_schema(r.json(), response_schema.payload_check_error)
 
     @allure.story('Invoke resend without payload in request body')
     @allure.severity('minor')
