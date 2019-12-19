@@ -23,6 +23,10 @@
         "both": {
             "username": "vungle.both@gmail.com",
             "password": "Vungle@2019"
+        },
+        "new_account": {
+            "username": "vungle.new.2020@gmail.com",
+            "password": "Vungle@2019"
         }
     },
     "mongo": {

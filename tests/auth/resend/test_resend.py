@@ -65,14 +65,15 @@ class TestResend(object):
     @pytest.mark.parametrize('email_addr', ['abc', '@', '@123.com', 'abc@'])
     def testN_resend_with_malformed_email_address(self, email_addr):
         '''
-        An error message is expected to be returned in the response payload
+        1. The response status code should be HTTP 400;
+        2. An error message is expected to be returned in the response payload;
         '''
         resend_payload = payload.resend(email_addr)
 
         r = post(auth_resend_endpoint, json=resend_payload, headers=headers(vungle_version='1'))
 
         # Verify status code
-        assert_response_status_code(r.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
+        assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)
         assert_valid_schema(r.json(), response_schema.error_message)
 
         assert_that(r.json(), equal_to({"code": 601,

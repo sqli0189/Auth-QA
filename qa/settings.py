@@ -20,6 +20,7 @@ pub_test_account = test_accounts['pub']
 adv_test_account = test_accounts['adv']
 both_test_account = test_accounts['both']
 pub_admin_test_account = test_accounts['pub_admin']
+new_test_account = test_accounts['new_account']
 
 # Valid vungle source values - Mission Ctrl needs it
 vungle_src_values = ['pub', 'adv', 'admin', 'foo']

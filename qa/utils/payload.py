@@ -6,9 +6,15 @@ def resend(username="foo.foo.com"):
     data = {"username": username}
     return data
 
-def register(username='foo@foo.com', name='foo', account_name='foo', password='foofoo123'):
-    data = { "username": username, "name": name, 
-             "account_name": account_name, "password": password}
+def register(username='foo@foo.com', name='foo', account_name='foo', password='#foofoo123', country='United States', account_type='pub', token='recaptcha_token'):
+    data = { "username": username, 
+             "name": name, 
+             "account_name": account_name,
+             "password": password,
+             "country": country,
+             "account_type": account_type,
+             "token": token
+            }
     return data
 
 def forgot(username='foo@foo.com'):
