@@ -19,12 +19,12 @@ def get_database():
     
     from qa.settings import config
 
-    mongo_config = config['mongo']
-    conn_string = "mongodb://%s:%s@%s:%s/%s" % (parse.quote(mongo_config['username']),
-                                                      parse.quote(mongo_config['password']),
-                                                      mongo_config['host'],
-                                                      mongo_config['port'],
-                                                      mongo_config['db_name'])
+    mongo_config = config['mongodb']
+    conn_string = "mongodb://%s:%s@%s/%s?authSource=admin&replicaSet=%s&retryWrites=true&w=majority&ssl=true" % (parse.quote(mongo_config['username']),
+                                                    parse.quote(mongo_config['password']),
+                                                    parse.quote(mongo_config['host']),
+                                                    parse.quote(mongo_config['db_name']),
+                                                    parse.quote(mongo_config['replicaset']))
     global mongo_client
     try:
         if mongo_client is None:

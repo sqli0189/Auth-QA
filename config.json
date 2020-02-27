@@ -28,12 +28,12 @@
             "password": "Vungle@2019"
         }
     },
-    "mongo": {
-        "host": "ds015841-a0.mlab.com",
-        "port": "15841",
-        "username": "alex.li@vungle.com",
-        "password": "D7q3mfiy$6B&9Y2",
-        "db_name": "vvv-repl"
+    "mongodb": {
+        "host": "#DB_HOST#",
+        "db_name": "#DB_NAME#",
+        "replicaset": "#DB_REPLICASET#",
+        "username": "#USERNAME#",
+        "password": "#PASSWORD#"
     },
     "imap": {
         "host": "imap.gmail.com",
