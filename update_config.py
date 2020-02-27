@@ -9,7 +9,7 @@ def main(argvs):
     json_config_file = 'config.json'
     
     try:
-        opts, args = getopt.getopt(argvs, '', ['db_host=', 'db_username=', 'env_type=', 'db_port=', 'db_name=', 'db_password=', 'auth_service_host='])
+        opts, args = getopt.getopt(argvs, '', ['db_host=', 'db_username=', 'env_type=', 'db_replicaset=', 'db_name=', 'db_password=', 'auth_service_host='])
     except getopt.GetoptError as ex:
         print(ex)
         raise ex
@@ -22,19 +22,19 @@ def main(argvs):
         for opt, arg in opts:
 
             if opt in ('--db_host', ):
-                config['mongo']['host'] = arg
+                config['mongodb']['host'] = arg
                 print('Set database host to %s' % arg)
             elif opt in ('--db_name', ):
-                config['mongo']['db_name'] = arg
+                config['mongodb']['db_name'] = arg
                 print('Set database name to %s' % arg)
-            elif opt in ('--db_port', ):
-                config['mongo']['port'] = arg
+            elif opt in ('--db_replicaset', ):
+                config['mongodb']['replicaset'] = arg
                 print('Set database port to %s' % arg)
             elif opt in ('--db_username', ):
-                config['mongo']['username']= arg
+                config['mongodb']['username']= arg
                 print('Set database username to %s' % arg)
             elif opt in ('--db_password', ):
-                config['mongo']['password'] = arg
+                config['mongodb']['password'] = arg
                 print('Set database password.')
             elif opt in ('--auth_service_host', ):
                 config['test_env']['auth']['host'] = arg
