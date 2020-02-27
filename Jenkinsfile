@@ -8,7 +8,7 @@ pipeline{
             steps{
                 sh '''
                     echo 'Update config.json'
-                    python3 update_config.py --db_host=${DB_HOST} --db_port=${DB_PORT} --db_name=${DB_NAME} --env_type=${ENV_TYPE} --db_username=${DB_USERNAME} --db_password=${DB_PASSWORD} --auth_service_host=${AUTH_SERVICE_HOST}
+                    python3 update_config.py --db_host=${DB_HOST} --db_replicaset=${DB_REPLICASET} --db_name=${DB_NAME} --env_type=${ENV_TYPE} --db_username=${DB_USERNAME} --db_password=${DB_PASSWORD} --auth_service_host=${AUTH_SERVICE_HOST}
                     echo 'Remove test-results folder generated last run'
                     rm -rf ${ALLURE_RESULT_PATH}
                 '''
