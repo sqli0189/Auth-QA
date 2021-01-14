@@ -46,7 +46,7 @@ class TestLogin(object):
 
     
     @allure.story('Login with the valid vungle source value')
-    @allure.severity('blocker')
+    @allure.severity('critical')
     @pytest.mark.parametrize('val', ['auth', 'pub', 'grow', 'ctrl', 'admin'])
     def test_login_with_valid_vungle_source_val(self, val):
         '''
