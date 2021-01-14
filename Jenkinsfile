@@ -63,30 +63,4 @@ pipeline{
             }
         }
     }
-    post {
-        success {
-            slackSend (channel: '#publisher-application-beijing',
-                       teamDomain: 'vungle', 
-                       tokenCredentialId: 'jenkins_QA_slack_token', 
-                       color: '#00FF00', 
-                       message: "*Test Job:* ${env.JOB_NAME}\n*Build Num:* ${env.BUILD_NUMBER}\n*Execution Type:* ${env.EXECUTION_TYPE}\n*Admin Service Host:* ${ADMIN_SERVICE_HOST}\n*Manage Service Host:* ${MANAGE_SERVICE_HOST}\n*Test Result:* :green_light:Passed\n*Test Duration:* ${currentBuild.durationString}\n*Test Report:* ${env.BUILD_URL}"
-                    )
-        }
-        unstable {
-            slackSend (channel: "#publisher-application-beijing",
-                       teamDomain: 'vungle',
-                       tokenCredentialId: 'jenkins_QA_slack_token',
-                       color: '#F8DE00',
-                       message: "*Test Job:* ${env.JOB_NAME}\n*Build Num:* ${env.BUILD_NUMBER}\n*Execution Type:* ${env.EXECUTION_TYPE}\n*Admin Service Host:* ${ADMIN_SERVICE_HOST}\n*Manage Service Host:* ${MANAGE_SERVICE_HOST}\n*Test Result:* :red_light:Failed\n*Test Duration:* ${currentBuild.durationString}\n*Test Report:* ${env.BUILD_URL}"
-            )
-        }
-        failure {
-            slackSend (channel: "#publisher-application-beijing",
-                       teamDomain: 'vungle',
-                       tokenCredentialId: 'jenkins_QA_slack_token',
-                       color: '#FF0000',
-                       message: "The job ${env.JOB_NAME} is borken, Please check the reason. (${env.BUILD_URL})"
-            )
-        }
-    }
 }
