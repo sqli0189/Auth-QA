@@ -19,7 +19,7 @@ from qa.settings import *
 class TestLogin(object):
 
     @allure.story('Login with valid username and password')
-    @allure.severity('critical')
+    @allure.severity('blocker')
     @pytest.mark.parametrize('account_type, username, password, expected_account_type', [
                              ('pub', test_accounts['pub']['username'], test_accounts['pub']['password'], 'publisher'),
                              ('adv', test_accounts['adv']['username'], test_accounts['adv']['password'], 'advertiser'),
@@ -46,7 +46,7 @@ class TestLogin(object):
 
     
     @allure.story('Login with the valid vungle source value')
-    @allure.severity('normal')
+    @allure.severity('blocker')
     @pytest.mark.parametrize('val', ['auth', 'pub', 'grow', 'ctrl', 'admin'])
     def test_login_with_valid_vungle_source_val(self, val):
         '''
@@ -123,7 +123,7 @@ class TestLogin(object):
 
 
     @allure.story('Login with an incorrect password')
-    @allure.severity('critical')
+    @allure.severity('blocker')
     def testN_login_with_incorrect_password(self):
         '''
         1. The response status code should be unauthorized;
