@@ -52,7 +52,7 @@ class TestConfirm(object):
         r = post(auth_confirm_endpoint, json=None, headers=headers(vungle_version='1'))
 
         # Verify status code
-        assert_response_status_code(r.status_code, HTTPStatus.BAD_REQUEST)
+        assert_response_status_code(r.status_code, HTTPStatus.UNAUTHORIZED)
         #Verify response payload
         assert_valid_schema(r.json(), response_schema.payload_check_error)
 

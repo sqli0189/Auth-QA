@@ -137,7 +137,7 @@ class TestLogin(object):
                  headers=headers(vungle_src=account_type))
 
         # Verify status code
-        assert_response_status_code(r.status_code, HTTPStatus.UNAUTHORIZED)
+        assert_response_status_code(r.status_code, HTTPStatus.FORBIDDEN)
         assert_valid_schema(r.json(), response_schema.payload_check_error)
     
 
