@@ -13,10 +13,8 @@ pipeline{
     }
     parameters {
         choice(name: 'ENV_TYPE', choices: ['STAGE', 'QA', 'E2E', 'CI'], description: 'Test environment')
-        string(name: 'ADMIN_SERVICE_HOST', defaultValue: 'pub-ctrl-stage-api.vungle.io', description: 'Admin service host')
         string(name: 'AUTH_SERVICE_HOST', defaultValue: 'auth-qa-api.vungle.io', description: 'Auth service host')
-        string(name: 'MANAGE_SERVICE_HOST', defaultValue: 'publisher-stage-api.vungle.io', description: 'Manage service host')
-        string(name: 'TEST_SUITE', defaultValue: 'tests/mission_ctrl/admin/', description: 'Test suite')
+        string(name: 'TEST_SUITE', defaultValue: 'tests/', description: 'Test suite')
         choice(name: 'EXECUTION_TYPE', choices: ['Full Regression', 'Smoke Test'], description: 'Execution type')
     }
     stages{
@@ -26,7 +24,7 @@ pipeline{
                 echo 'Update config.json'
                 withCredentials([usernamePassword(credentialsId: 'ATLAS_QA_DB', usernameVariable: 'DB_USERNAME', passwordVariable: 'DB_PASSWORD')]) 
                 {
-                    sh 'python3 update_config.py --env_type=${ENV_TYPE} --db_username=${DB_USERNAME} --db_password=${DB_PASSWORD} --admin_service_host=${ADMIN_SERVICE_HOST} --manage_service_host=${MANAGE_SERVICE_HOST} --auth_service_host=${AUTH_SERVICE_HOST}'
+                    sh 'python3 update_config.py --env_type=${ENV_TYPE} --db_username=${DB_USERNAME} --db_password=${DB_PASSWORD} --auth_service_host=${AUTH_SERVICE_HOST}'
                 }
             }
         }

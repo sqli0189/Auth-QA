@@ -8,8 +8,7 @@ def main(argvs):
     json_config_file = 'config.json'
     
     try:
-        opts, args = getopt.getopt(argvs, '', ['db_username=', 'env_type=', 'db_password=', 
-                                                'admin_service_host=', 'manage_service_host=', 'auth_service_host='])
+        opts, args = getopt.getopt(argvs, '', ['db_username=', 'env_type=', 'db_password=', 'auth_service_host='])
     except getopt.GetoptError as ex:
         print(ex)
         raise ex
@@ -27,12 +26,8 @@ def main(argvs):
             elif opt in ('--db_password', ):
                 config['mongodb']['password'] = arg
                 print('Set database password.')
-            elif opt in ('--admin_service_host', ):
-                config['test_env']['mission_ctrl']['admin']['host'] = arg
-            elif opt in ('--manage_service_host', ):
-                config['test_env']['self_service']['manage']['host'] = arg
             elif opt in ('--auth_service_host', ):
-                config['test_env']['mission_ctrl']['auth']['host'] = arg
+                config['test_env']['auth']['host'] = arg
             elif opt in ('--env_type', ):
                 config['test_env']['type']=arg
 
