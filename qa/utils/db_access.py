@@ -20,19 +20,18 @@ def get_database():
     from qa.settings import config
 
     mongo_config = config['mongodb']
-    conn_string = "mongodb://%s:%s@%s/%s?authSource=admin&replicaSet=%s&retryWrites=true&w=majority&ssl=true" % (parse.quote(mongo_config['username']),
-                                                    parse.quote(mongo_config['password']),
-                                                    parse.quote(mongo_config['host']),
-                                                    parse.quote(mongo_config['db_name']),
-                                                    parse.quote(mongo_config['replicaset']))
+    conn_string = "mongodb://%s:%s@qa-vvv-repl-shard-00-00-becyx.mongodb.net:27017,qa-vvv-repl-shard-00-01-becyx.mongodb.net:27017,qa-vvv-repl-shard-00-02-becyx.mongodb.net:27017/vvv-repl?authSource=admin&replicaSet=QA-vvv-repl-shard-0&retryWrites=true&w=majority&ssl=true" % (
+                        parse.quote(mongo_config['username']),
+                        parse.quote(mongo_config['password'])
+                    )
     global mongo_client
     try:
         if mongo_client is None:
             mongo_client = pymongo.MongoClient(conn_string)
-        return mongo_client[mongo_config['db_name']]
+        return mongo_client['vvv-repl']
     except Exception as ex:
         raise ex
-    return mongo_client[mongo_config['db_name']]
+    return mongo_client['vvv-repl']
 
 # Retrieve account information by object ID
 def get_account_info_by_id(obj_id: str):

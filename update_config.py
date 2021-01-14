@@ -1,4 +1,3 @@
-
 import json
 import getopt
 import sys
@@ -9,7 +8,8 @@ def main(argvs):
     json_config_file = 'config.json'
     
     try:
-        opts, args = getopt.getopt(argvs, '', ['db_host=', 'db_username=', 'env_type=', 'db_replicaset=', 'db_name=', 'db_password=', 'auth_service_host='])
+        opts, args = getopt.getopt(argvs, '', ['db_username=', 'env_type=', 'db_password=', 
+                                                'admin_service_host=', 'manage_service_host=', 'auth_service_host='])
     except getopt.GetoptError as ex:
         print(ex)
         raise ex
@@ -21,23 +21,18 @@ def main(argvs):
     
         for opt, arg in opts:
 
-            if opt in ('--db_host', ):
-                config['mongodb']['host'] = arg
-                print('Set database host to %s' % arg)
-            elif opt in ('--db_name', ):
-                config['mongodb']['db_name'] = arg
-                print('Set database name to %s' % arg)
-            elif opt in ('--db_replicaset', ):
-                config['mongodb']['replicaset'] = arg
-                print('Set database port to %s' % arg)
-            elif opt in ('--db_username', ):
+            if opt in ('--db_username', ):
                 config['mongodb']['username']= arg
                 print('Set database username to %s' % arg)
             elif opt in ('--db_password', ):
                 config['mongodb']['password'] = arg
                 print('Set database password.')
+            elif opt in ('--admin_service_host', ):
+                config['test_env']['mission_ctrl']['admin']['host'] = arg
+            elif opt in ('--manage_service_host', ):
+                config['test_env']['self_service']['manage']['host'] = arg
             elif opt in ('--auth_service_host', ):
-                config['test_env']['auth']['host'] = arg
+                config['test_env']['mission_ctrl']['auth']['host'] = arg
             elif opt in ('--env_type', ):
                 config['test_env']['type']=arg
 

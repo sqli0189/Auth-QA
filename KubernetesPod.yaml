@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pytest
+spec:
+  containers:
+  - name: pytest
+    image: sqli0189/jnlp-agent-pytest:latest
+    imagePullPolicy: Always
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "512Mi"
+        cpu: "1000m"
+    command:
+    - cat
+    tty: true
